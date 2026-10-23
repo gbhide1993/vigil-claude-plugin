@@ -1,0 +1,13 @@
+{
+  "name": "vigil",
+  "description": "AI agent monitoring for Claude Code. Vigil records the file changes, process spawns and credential-file activity your agent causes, and generates a session PDF report you can share with security and compliance teams. Network monitoring is planned.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Vvault Technologies",
+    "email": "hello@getvvault.com"
+  },
+  "homepage": "https://getvvault.com",
+  "repository": "https://github.com/gbhide1993/vigil-claude-plugin",
+  "license": "Proprietary",
+  "category": "security"
+}

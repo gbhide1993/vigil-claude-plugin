@@ -1,4 +1,7 @@
-﻿# Vigil Session Report
+---
+description: Generate a Vigil audit report for the current Claude Code session
+---
+# Vigil Session Report
 
 Generate a Vigil audit report for the current Claude Code session.
 

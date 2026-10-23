@@ -7,6 +7,7 @@
     "email": "hello@getvvault.com"
   },
   "homepage": "https://getvvault.com",
+  "keywords": ["ai-agents", "audit", "evidence", "monitoring", "security", "compliance", "claude-code", "windows"],
   "repository": "https://github.com/gbhide1993/vigil-claude-plugin",
   "license": "Proprietary"
 }

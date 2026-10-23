@@ -16,15 +16,11 @@ When Vigil is running alongside Claude Code, it:
 - **Windows 10/11 or Windows Server 2019+** (macOS/Linux support coming)
 - **Vigil backend** must be running locally at `http://127.0.0.1:7422`
   - Download the Vigil desktop app from [getvvault.com](https://getvvault.com)
-  - Or install the **Vigil VS Code extension** (ID: `getvvault.vigil`) which manages the backend automatically
+  - Or install the **Vigil VS Code extension** (ID: `vvault.vigil-ai-monitor`) which manages the backend automatically
 
 ## Installation
 
-Install the Vigil backend first, then enable this plugin:
-
-```bash
-claude plugin install vigil@claude-community
-```
+Install the Vigil backend first, then add this plugin from the Claude plugin directory by searching for Vigil.
 
 The plugin connects to the Vigil backend MCP server at `http://127.0.0.1:7422/mcp`.
 

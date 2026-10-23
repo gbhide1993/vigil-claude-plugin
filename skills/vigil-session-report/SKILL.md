@@ -4,33 +4,35 @@ description: Generate a Vigil session audit report. Use when the user asks to do
 
 # Vigil Session Report
 
-Use the `vigil` MCP server to generate and download a session PDF audit report.
+Use the `vigil` MCP server to summarize the current session and point the user to the PDF audit report.
 
 ## Steps
 
-1. Call `vigil_get_active_session` to get the current session ID.
-   - If no active session is returned, tell the user: "No active Vigil session found. Vigil must be running and monitoring an active agent session."
+1. Call `get_current_session` (no parameters) to get the current session.
+   - If the Vigil tools are unavailable, tell the user: "Vigil backend is not reachable. Vigil must be running at http://127.0.0.1:7422."
+   - If `session_id` is null (`status` is `"none"`), tell the user: "No Vigil session found. Vigil must be running and monitoring an agent session."
 
-2. Call `vigil_get_session_report` with the session ID to retrieve the report data (JSON preview).
-
-3. Tell the user:
+2. Tell the user, from the result:
    - Session ID (first 8 characters)
-   - Agent name
-   - Start time (local timezone)
-   - Summary counts: files touched, process spawns, red lines (network connections are not monitored in this version; if the report shows them as "off", say so rather than reporting zero)
-   - Whether any red lines were triggered
+   - `agent` name
+   - `start_time` (local timezone), `status` (`active`, `idle` or `completed`) and `duration_min`
+   - Summary counts: `files_touched`, `red_lines`, `friction_signals`
+   - Network connections are not monitored, and file reads are not recorded, so do not report either as zero
 
-4. Provide the PDF download URL:
+3. Provide the PDF download URL:
    ```
    http://127.0.0.1:7422/api/sessions/{session_id}/report
    ```
    Tell the user they can open this URL in their browser to download the PDF, or use the **Download Session Report (PDF)** button in the Vigil VS Code sidebar.
 
-5. If the user asks about specific events (e.g., "what files did I touch?"), use `vigil_get_session_events` to list them.
+4. If `red_lines` is greater than 0, call `get_red_line_events` with `since_hours` set to the hours since `start_time`, rounded up (minimum 1). Keep only events whose `session_id` matches the current session and list them in full (type, severity, description, timestamp, process, filepath).
+
+5. If the user asks about friction (retry loops, rapid reverts), call `get_friction_findings` with `session_id`. If they ask about a specific file, call `get_file_history` with `filepath`.
 
 ## Notes
 
-- The PDF is generated independently of agent self-reporting. It reflects what Vigil observed; file reads are not recorded and short-lived processes between checks can be missed, so absence of an entry is not proof something did not happen
-- Red lines indicate policy violations (credential file changes, out-of-scope writes, dangerous commands)
-- Timestamps are shown in local time (IST or your system timezone)
+- The PDF is generated independently of agent self-reporting. It reflects what Vigil observed at OS level; file reads are not recorded and short-lived processes between checks can be missed, so absence of an entry is not proof something did not happen
+- Network connections are not monitored
+- Red lines are high-risk events such as credential file changes, out-of-scope writes and dangerous commands
+- Friction findings are inferred patterns, each with a confidence level, not proof of a problem
 - The Vigil backend must be running at `http://127.0.0.1:7422` for this to work

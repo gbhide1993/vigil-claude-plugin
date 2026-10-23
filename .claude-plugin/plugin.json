@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "author": {
     "name": "Vvault Technologies",
-    "email": "hello@getvvault.com"
+    "email": "girish@getvvault.com"
   },
   "homepage": "https://getvvault.com",
+  "privacyPolicyUrl": "https://github.com/gbhide1993/vigil-claude-plugin/blob/main/PRIVACY.md",
   "keywords": ["ai-agents", "audit", "evidence", "monitoring", "security", "compliance", "claude-code", "windows"],
   "repository": "https://github.com/gbhide1993/vigil-claude-plugin",
   "license": "Proprietary"
